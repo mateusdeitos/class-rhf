@@ -5,11 +5,14 @@ import "../App.css";
 export const FormWatch = () => {
 	const { getValues, register, watch } = useForm({
 		defaultValues: {
-			name: "",
+			name: {
+				firstName: "",
+				lastName: "",
+			},
 		}
 	});
 
-	const name = watch("name");
+	const [firstName, lastName] = watch(["name.firstName", "name.lastName"]);
 	const form = watch();
 
 	const handleClick = () => {
@@ -18,12 +21,16 @@ export const FormWatch = () => {
 
 	return <>
 		<div>
-			<Input {...register("name")} label="Name" type="text" />
+			<Input {...register("name.firstName")} label="Name" type="text" />
+			<span>Length: {firstName.length}</span>
 			<br />
-			<span>Length: {name.length}</span>
+			<Input {...register("name.lastName")} label="Name" type="text" />
+			<span>Length: {lastName.length}</span>
 			<br />
 			<pre>{JSON.stringify(form, null, 2)}</pre>
 		</div>
-		<button type="button" onClick={handleClick}>Enviar</button>
+		<div>
+			<button type="button" onClick={handleClick}>Enviar</button>
+		</div>
 	</>
 }

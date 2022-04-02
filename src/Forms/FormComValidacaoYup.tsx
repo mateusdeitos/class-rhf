@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { Input } from "../Inputs/Input"
 import "../App.css";
-import { useEffect } from "react";
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -27,20 +26,18 @@ export const FormComValidacaoYup = () => {
 		console.log(errors);
 	}
 
-	useEffect(() => {
-		console.log(errors);
-	}, [errors])
-
 	return <>
 		<div>
 			<Input {...register("name")} label="Name" type="text" />
-			{!!errors.name && <span>{errors.name.message}</span>}
 			<br />
 
 			<Input {...register("acceptTerms")} label="Aceito os termos" type="checkbox" />
-			{!!errors.acceptTerms && <span>{errors.acceptTerms.message}</span>}
 			<br />
 		</div>
+		<pre>{JSON.stringify({
+			name: errors?.name?.message || "",
+			acceptTerms: errors?.acceptTerms?.message || "",
+		}, null, 2)}</pre>
 		<button type="button" onClick={handleSubmit(handleClick, handleErrors)}>Enviar</button>
 	</>
 }

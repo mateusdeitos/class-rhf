@@ -16,7 +16,7 @@ const hobbies = [
 
 export const FormMaisComplexo = () => {
 
-	const { register, getValues, reset, handleSubmit } = useForm({
+	const { register, getValues, reset } = useForm({
 		defaultValues: {
 			name: {
 				firstName: "",
@@ -30,8 +30,8 @@ export const FormMaisComplexo = () => {
 		}
 	});
 
-	const handleClick = (data: any) => {
-		alert(JSON.stringify(data, null, 2));
+	const handleClick = () => {
+		alert(JSON.stringify(getValues(), null, 2));
 	}
 
 	return <>
@@ -40,7 +40,12 @@ export const FormMaisComplexo = () => {
 			<Input {...register("name.lastName")} label="Sobrenome" type="text" />
 			<br />
 			<Input {...register("local.cidade")} label="Cidade" type="text" />
-			<Input {...register("local.uf")} label="UF" type="text" />
+			<select {...register("local.uf")} placeholder="UF">
+				<option value="RS">RS</option>
+				<option value="SC">SC</option>
+				<option value="PR">PR</option>
+				<option value="SP">SP</option>
+			</select>
 			<br />
 			<div className="vertical-checkboxes-container">
 				{hobbies.map((hobby, index) => (
@@ -57,7 +62,7 @@ export const FormMaisComplexo = () => {
 			</div>
 		</div>
 		<div>
-			<button type="button" onClick={handleSubmit(handleClick, (errors) => console.log(errors))}>Enviar</button>
+			<button type="button" onClick={handleClick}>Enviar</button>
 			<button type="button" onClick={() => reset()}>Reset</button>
 		</div>
 	</>

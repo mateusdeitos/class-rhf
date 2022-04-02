@@ -74,7 +74,11 @@ export const FormDinamico = () => {
 				</thead>
 				<tbody>
 					{fields.map((field, index) => (
-						<Item key={field.id} index={index} remove={remove} />
+						<Item key={field.id} index={index}>
+							<td>
+								<button tabIndex={-1} type="button" onClick={() => remove(index)}>Remover</button>
+							</td>
+						</Item>
 					))}
 				</tbody>
 			</table>
@@ -92,7 +96,6 @@ export const FormDinamico = () => {
 
 const ValorVenda = () => {
 	const { register, setValue, watch } = useFormContext<IVendaForm>();
-	// const items = ;
 	const total = watch("items").reduce((acc, item) => acc + item.valorTotal, 0);
 
 	useEffect(() => {
@@ -102,7 +105,10 @@ const ValorVenda = () => {
 	return <Input {...register("valorVenda")} label="Valor da venda" disabled type="number" />
 }
 
-const Item = ({ index, remove }: { index: number, remove: (index: number) => void }) => {
+interface ItemProps {
+	index: number;
+}
+const Item: React.FC<ItemProps> = ({ index, children }) => {
 	const { register, watch, setValue } = useFormContext<IVendaForm>();
 
 	const [quantidade, valorUnitario] = watch([
@@ -124,20 +130,18 @@ const Item = ({ index, remove }: { index: number, remove: (index: number) => voi
 		<td>
 			<input {...register(`items.${index}.valorUnitario`, {
 				validate: value => {
-					if (value > 100) {
+					if (value > 10) {
 						return true;
 					}
 
-					return "Valor unitário deve ser maior que 100";
+					return "Valor unitário deve ser maior que 10";
 				}
 			})} type="text" />
 		</td>
 		<td>
 			<input {...register(`items.${index}.valorTotal`)} disabled type="text" />
 		</td>
-		<td>
-			<button type="button" onClick={() => remove(index)}>Remover</button>
-		</td>
+		{children}
 	</tr>
 
 }

@@ -16,10 +16,6 @@ export const FormComValidacao = () => {
 		alert(JSON.stringify(data, null, 2));
 	}
 
-	useEffect(() => {
-		console.log(errors);
-	}, [errors])
-
 	return <>
 		<div>
 			<Input {...register("name", {
@@ -27,16 +23,19 @@ export const FormComValidacao = () => {
 				validate: (value) => value === "Mateus" || "Só pode ser Mateus",
 
 			})} label="Name" type="text" />
-			{!!errors.name && <span>{errors.name.message}</span>}
+			{/* {!!errors.name && <span>{errors.name.message}</span>} */}
 			<br />
 
 			<Input {...register("acceptTerms", {
 				required: { value: true, message: "Você precisa aceitar os termos" },
 			})} label="Aceito os termos" type="checkbox" />
-			{!!errors.acceptTerms && <span>{errors.acceptTerms.message}</span>}
+			{/* {!!errors.acceptTerms && <span>{errors.acceptTerms.message}</span>} */}
 			<br />
-			{/* <pre>{JSON.stringify(errors, null, 2)}</pre> */}
+			<pre>{JSON.stringify({
+				name: errors?.name?.message || "",
+				acceptTerms: errors?.acceptTerms?.message || "",
+			}, null, 2)}</pre>
 		</div>
-		<button type="button" onClick={handleSubmit(handleClick)}>Enviar</button>
+		<button type="button" onClick={handleSubmit(handleClick, errors => console.log(errors))}>Enviar</button>
 	</>
 }

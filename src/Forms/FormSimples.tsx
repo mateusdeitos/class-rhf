@@ -22,7 +22,9 @@ export const FormSimples = () => {
 			<Input {...register("acceptTerms")} label="Aceito os termos" type="checkbox" />
 			<br />
 		</div>
-		<button type="button" onClick={handleClick}>Enviar</button>
-		<button type="button" onClick={() => reset()}>Reset</button>
+		<div>
+			<button type="button" onClick={handleClick}>Enviar</button>
+			<button type="button" onClick={() => reset()}>Reset</button>
+		</div>
 	</>
 }
