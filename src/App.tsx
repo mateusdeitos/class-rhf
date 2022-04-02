@@ -2,6 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { FormComValidacao } from './Forms/FormComValidacao'
 import { FormComValidacaoYup } from './Forms/FormComValidacaoYup'
+import { FormDinamico } from './Forms/FormDinamico'
 import { FormMaisComplexo } from './Forms/FormMaisComplexo'
 import { FormSetValue } from './Forms/FormSetValue'
 import { FormSimples } from './Forms/FormSimples'
@@ -31,6 +32,10 @@ const components = [
 	{
 		name: "Form Com Validação Yup",
 		component: FormComValidacaoYup,
+	},
+	{
+		name: "Form Dinâmico",
+		component: FormDinamico,
 	},
 ]
 
