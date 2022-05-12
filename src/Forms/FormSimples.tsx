@@ -2,8 +2,14 @@ import { useForm } from "react-hook-form"
 import { Input } from "../Inputs/Input"
 import "../App.css";
 
+interface IFormSimples {
+	email: string;
+	password: string;
+	acceptTerms: boolean;
+}
+
 export const FormSimples = () => {
-	const { register, getValues, reset } = useForm({
+	const { register, getValues, reset } = useForm<IFormSimples>({
 		defaultValues: {
 			email: "",
 			password: "",

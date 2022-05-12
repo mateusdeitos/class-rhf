@@ -1,4 +1,4 @@
-import { FormProvider, useFieldArray, useForm, useFormContext, useWatch } from "react-hook-form"
+import { FormProvider, useFieldArray, useForm, useFormContext } from "react-hook-form"
 import { Input } from "../Inputs/Input"
 import "../App.css";
 import { useEffect } from 'react';
@@ -31,7 +31,7 @@ const defaultItem: IVendaForm["items"][0] = {
 const items: IVendaForm["items"] = [defaultItem];
 
 export const FormDinamico = () => {
-	const form = useForm({
+	const form = useForm<IVendaForm>({
 		shouldFocusError: true,
 		defaultValues: {
 			dataPedido: new Date().toLocaleDateString("pt-BR"),
@@ -43,12 +43,12 @@ export const FormDinamico = () => {
 			items,
 		},
 	});
-	const { register, getValues, reset, control, handleSubmit } = form;
+	const { register, reset, control, handleSubmit } = form;
 
 	const { fields, append, remove } = useFieldArray<IVendaForm>({ name: "items", control });
 
 	const handleClick = (data: any) => {
-		console.log("valores", getValues());
+		alert(JSON.stringify(data, null, 2));
 	}
 
 	const handleErrors = (errors: any) => {
@@ -80,14 +80,15 @@ export const FormDinamico = () => {
 							</td>
 						</Item>
 					))}
+					<button type="button" onClick={() => append({
+						...defaultItem,
+						id: fields.length
+					})}>Add item</button>
 				</tbody>
 			</table>
 		</div>
 		<div>
-			<button type="button" onClick={() => append({
-				...defaultItem,
-				id: fields.length
-			})}>Add item</button>
+
 			<button type="button" onClick={handleSubmit(handleClick, handleErrors)}>Enviar</button>
 			<button type="button" onClick={() => reset()}>Reset</button>
 		</div>

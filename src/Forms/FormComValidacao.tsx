@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form"
 import { Input } from "../Inputs/Input"
 import "../App.css";
-import { useEffect } from "react";
 
 export const FormComValidacao = () => {
 	const { handleSubmit, register, formState: { errors } } = useForm({
@@ -19,17 +18,22 @@ export const FormComValidacao = () => {
 	return <>
 		<div>
 			<Input {...register("name", {
+				required: "O nome é obrigatório",
 
-				validate: (value) => value === "Mateus" || "Só pode ser Mateus",
+				validate: (value) => {
+					if (value !== "Mateus") {
+						return "Só pode ser Mateus";
+					}
+
+					return true;
+				},
 
 			})} label="Name" type="text" />
-			{/* {!!errors.name && <span>{errors.name.message}</span>} */}
 			<br />
 
 			<Input {...register("acceptTerms", {
 				required: { value: true, message: "Você precisa aceitar os termos" },
 			})} label="Aceito os termos" type="checkbox" />
-			{/* {!!errors.acceptTerms && <span>{errors.acceptTerms.message}</span>} */}
 			<br />
 			<pre>{JSON.stringify({
 				name: errors?.name?.message || "",

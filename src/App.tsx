@@ -6,11 +6,16 @@ import { FormDinamico } from './Forms/FormDinamico'
 import { FormMaisComplexo } from './Forms/FormMaisComplexo'
 import { FormSetValue } from './Forms/FormSetValue'
 import { FormSimples } from './Forms/FormSimples'
+import { FormSimplesSemLib } from './Forms/FormSimplesSemLib'
 import { FormWatch } from './Forms/FormWatch'
 
 const components = [
 	{
-		name: "Form Simples",
+		name: "Form Simples (Sem lib)",
+		component: FormSimplesSemLib,
+	},
+	{
+		name: "Form Simples (Usando a lib)",
 		component: FormSimples,
 	},
 	{

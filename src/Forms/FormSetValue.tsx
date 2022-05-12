@@ -23,10 +23,10 @@ export const FormSetValue = () => {
 	return <>
 		<div>
 			<Input {...register("name")} label="Name" type="text" disabled />
+			<button type="button" onClick={askSomething}>Obter Nome</button>
 			<br />
 		</div>
 		<div>
-			<button type="button" onClick={askSomething}>Obter Nome</button>
 			<button type="button" onClick={handleClick}>Enviar</button>
 		</div>
 	</>
